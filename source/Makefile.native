@@ -1,0 +1,25 @@
+# Makefile-local: Build and install X64 LV2 plugins from current folder (assumed to be /<plugin>/source)
+
+PARENTFOLDER:=$(notdir $(abspath ..))
+MAIN_C:=$(PARENTFOLDER).c
+OUT_SO:=$(PARENTFOLDER).so
+TTL_FILES:=$(wildcard *.ttl)
+MODGUI_DIR:=modgui
+INSTALL_DIR:=/usr/lib/lv2/$(PARENTFOLDER).lv2
+
+all: build install clean_so
+
+build:
+	gcc -fvisibility=hidden -fPIC -Wl,-Bstatic -Wl,-Bdynamic -Wl,--as-needed -shared -pthread \
+		`pkg-config --cflags lv2` -lm `pkg-config --libs lv2` $(MAIN_C) -o $(OUT_SO)
+
+install:
+	@echo "Installing to $(INSTALL_DIR)"
+	@sudo mkdir -p $(INSTALL_DIR)
+	@sudo cp $(OUT_SO) $(TTL_FILES) $(INSTALL_DIR)
+	@if [ -d $(MODGUI_DIR) ]; then sudo cp -r $(MODGUI_DIR) $(INSTALL_DIR)/; fi
+
+clean_so:
+	@rm -f $(OUT_SO)
+
+.PHONY: all build install clean_so

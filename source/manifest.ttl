@@ -1,0 +1,12 @@
+@prefix lv2:  <https://github.com/OilCanStevecore#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+
+<https://github.com/OilCanSteve/ocs-conductor> a lv2:Plugin ;
+    lv2:binary <ocs-conductor.so> ;
+    rdfs:seeAlso <ocs-conductor.ttl> .
+
+<https://github.com/OilCanSteve/ocs-conductor/presets/identity>
+    a pset:Preset ;
+    rdfs:seeAlso <ocs-conductor.ttl> .

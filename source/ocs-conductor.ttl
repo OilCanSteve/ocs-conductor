@@ -1,0 +1,477 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix lv2:   <https://github.com/OilCanStevecore#> .
+@prefix urid:  <http://lv2plug.in/ns/ext/urid#> .
+@prefix midi:  <http://lv2plug.in/ns/ext/midi#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix pprops: <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pset:  <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rsz:   <http://lv2plug.in/ns/ext/resize-port#> .
+
+<https://github.com/OilCanSteve/ocs-conductor>
+  a lv2:Plugin ;
+  doap:name "OilCan conductor" ;
+  doap:license <http://opensource.org/licenses/isc> ;
+  lv2:project <https://github.com/OilCanSteve> ;
+  lv2:requiredFeature urid:map ;
+  lv2:optionalFeature lv2:hardRTCapable ;
+
+  lv2:port  [
+  a lv2:OutputPort , atom:AtomPort ;
+	atom:bufferType atom:Sequence ;
+	atom:supports midi:MidiEvent ;
+  rsz:minimumSize 1024 ;
+  lv2:index 0 ;
+  lv2:symbol "MidiOutput" ;
+  lv2:name "MIDIOutput" ;
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 1 ;
+  lv2:symbol "MidiChannel" ;
+  lv2:name "MidiChannel" ;
+  lv2:minimum 0 ;
+  lv2:maximum 15 ;
+  lv2:portProperty lv2:integer 
+  ],  
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 2 ;
+  lv2:symbol "EnactChangesOnly" ;
+  lv2:name "EnactChangesOnly" ;
+  lv2:minimum 0 ;
+  lv2:maximum 1 ;
+  lv2:default 0 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 3 ;
+  lv2:symbol "state_trigger" ;
+  lv2:name "state_trigger" ;
+  lv2:minimum 0;
+  lv2:default 0 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 4 ;
+  lv2:symbol "cc_a_num" ;
+  lv2:name "cc_a_num" ;
+  lv2:minimum -1 ;
+  lv2:default 11 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+   [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 5 ;
+  lv2:symbol "cc_b_num" ;
+  lv2:name "cc_b_num" ;
+  lv2:minimum -1 ;
+  lv2:default 10 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 6 ;
+  lv2:symbol "ccnum_4_bit_1" ;
+  lv2:name "ccnum_4_bit_1" ;
+  lv2:minimum -1 ;
+  lv2:default 20 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 7 ;
+  lv2:symbol "ccnum_4_bit_2" ;
+  lv2:name "ccnum_4_bit_2" ;
+  lv2:minimum -1 ;
+  lv2:default 21 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 8 ;
+  lv2:symbol "ccnum_4_bit_3" ;
+  lv2:name "ccnum_4_bit_3" ;
+  lv2:minimum -1 ;
+  lv2:default 22 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 9;
+  lv2:symbol "ccnum_4_bit_4" ;
+  lv2:name "ccnum_4_bit_4" ;
+  lv2:minimum -1 ;
+  lv2:default 23 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 10 ;
+  lv2:symbol "ccnum_4_bit_5" ;
+  lv2:name "ccnum_4_bit_5" ;
+  lv2:minimum -1;
+  lv2:default 24 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 11 ;
+  lv2:symbol "ccnum_4_bit_6" ;
+  lv2:name "ccnum_4_bit_6" ;
+  lv2:minimum -1;
+  lv2:default 25 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 12 ;
+  lv2:symbol "ccnum_4_bit_7" ;
+  lv2:name "ccnum_4_bit_7" ;
+  lv2:minimum -1 ;
+  lv2:default 26 ;
+  lv2:maximum 127 ;
+  lv2:portProperty lv2:integer 
+  ],
+  [
+  a lv2:InputPort, lv2:ControlPort ;
+  lv2:index 13 ;
+    lv2:symbol "Plus8Return" ;
+    lv2:name "Plus8Return" ;
+    lv2:minimum 1 ;
+    lv2:default 1;
+    lv2:maximum 7 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:OutputPort , atom:AtomPort ;
+    atom:bufferType atom:Sequence ;
+    atom:supports midi:MidiEvent ;
+    rsz:minimumSize 256 ;
+    lv2:index 14 ;
+    lv2:symbol "SysExOutput" ;
+    lv2:name "SysExOutput" ;
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 15 ;
+    lv2:symbol "InternalSysExId" ;
+    lv2:name "InternalSysExId" ;
+    lv2:minimum 0 ;
+    lv2:default 0 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 16 ;
+    lv2:symbol "bits_change_1" ;
+    lv2:name "bits_change_1" ;
+    lv2:minimum 0 ;
+    lv2:default 1 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 17 ;
+    lv2:symbol "cc_a_change_1" ;
+    lv2:name "cc_a_change_1" ;
+    lv2:minimum -1 ;
+    lv2:default 1 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 18 ;
+    lv2:symbol "cc_b_change_1" ;
+    lv2:name "cc_b_change_1" ;
+    lv2:minimum -1 ;
+    lv2:default 1 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 19 ;
+    lv2:symbol "bits_change_2" ;
+    lv2:name "bits_change_2" ;
+    lv2:minimum 0 ;
+    lv2:default 3 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 20 ;
+    lv2:symbol "cc_a_change_2" ;
+    lv2:name "cc_a_change_2" ;
+    lv2:minimum -1 ;
+    lv2:default 2 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 21 ;
+    lv2:symbol "cc_b_change_2" ;
+    lv2:name "cc_b_change_2" ;
+    lv2:minimum -1 ;
+    lv2:default 2 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 22 ;
+    lv2:symbol "bits_change_3" ;
+    lv2:name "bits_change_3" ;
+    lv2:minimum 0 ;
+    lv2:default 7 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 23 ;
+    lv2:symbol "cc_a_change_3" ;
+    lv2:name "cc_a_change_3" ;
+    lv2:minimum -1 ;
+    lv2:default 3 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 24 ;
+    lv2:symbol "cc_b_change_3" ;
+    lv2:name "cc_b_change_3" ;
+    lv2:minimum -1 ;
+    lv2:default 3 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 25 ;
+    lv2:symbol "bits_change_4" ;
+    lv2:name "bits_change_4" ;
+    lv2:minimum 0 ;
+    lv2:default 15 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 26 ;
+    lv2:symbol "cc_a_change_4" ;
+    lv2:name "cc_a_change_4" ;
+    lv2:minimum -1 ;
+    lv2:default 4 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 27 ;
+    lv2:symbol "cc_b_change_4" ;
+    lv2:name "cc_b_change_4" ;
+    lv2:minimum -1 ;
+    lv2:default 4 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 28 ;
+    lv2:symbol "bits_change_5" ;
+    lv2:name "bits_change_5" ;
+    lv2:minimum 0 ;
+    lv2:default 31 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 29 ;
+    lv2:symbol "cc_a_change_5" ;
+    lv2:name "cc_a_change_5" ;
+    lv2:minimum -1 ;
+    lv2:default 5 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 30 ;
+    lv2:symbol "cc_b_change_5" ;
+    lv2:name "cc_b_change_5" ;
+    lv2:minimum -1 ;
+    lv2:default 5 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 31 ;
+    lv2:symbol "bits_change_6" ;
+    lv2:name "bits_change_6" ;
+    lv2:minimum 0 ;
+    lv2:default 63;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 32 ;
+    lv2:symbol "cc_a_change_6" ;
+    lv2:name "cc_a_change_6" ;
+    lv2:minimum -1 ;
+    lv2:default 6;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 33 ;
+    lv2:symbol "cc_b_change_6" ;
+    lv2:name "cc_b_change_6" ;
+    lv2:minimum -1 ;
+    lv2:default 6;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 34 ;
+    lv2:symbol "bits_change_7" ;
+    lv2:name "bits_change_7" ;
+    lv2:minimum 0 ;
+    lv2:default 127;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 35 ;
+    lv2:symbol "cc_a_change_7" ;
+    lv2:name "cc_a_change_7" ;
+    lv2:minimum -1 ;
+    lv2:default 7;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 36 ;
+    lv2:symbol "cc_b_change_7" ;
+    lv2:name "cc_b_change_7" ;
+    lv2:minimum -1 ;
+    lv2:default 7;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 37 ;
+    lv2:symbol "bits_change_8" ;
+    lv2:name "bits_change_8" ;
+    lv2:minimum 0 ;
+    lv2:default 0 ;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 38 ;
+    lv2:symbol "cc_a_change_8" ;
+    lv2:name "cc_a_change_8" ;
+    lv2:minimum -1 ;
+    lv2:default 8;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ],
+    [
+    a lv2:InputPort, lv2:ControlPort ;
+    lv2:index 39 ;
+    lv2:symbol "cc_b_change_8" ;
+    lv2:name "cc_b_change_8" ;
+    lv2:minimum -1 ;
+    lv2:default 8;
+    lv2:maximum 127 ;
+    lv2:portProperty lv2:integer 
+    ].
+
+
+# ---------------------------------------------------------------------------
+# Preset 1 — "Identity (n=n)"
+# Every state's bits_change, cc_a_change, and cc_b_change all equal the
+# state number n (1–8).  The resulting bit patterns are trivially small
+# integers and the CC values mirror them directly, making it easy to verify
+# on a MIDI monitor that the correct state fired.
+# ---------------------------------------------------------------------------
+
+<https://github.com/OilCanSteve/ocs-conductor/presets/identity>
+  a pset:Preset ;
+  lv2:appliesTo <https://github.com/OilCanSteve/ocs-conductor> ;
+  rdfs:label "Identity (n=n)" ;
+  pset:port
+    [ lv2:symbol "MidiChannel" ;       pset:value 0 ],
+    [ lv2:symbol "EnactChangesOnly" ;  pset:value 0 ],
+    [ lv2:symbol "state_trigger" ;     pset:value 0 ],
+    [ lv2:symbol "cc_a_num" ;          pset:value 11 ],
+    [ lv2:symbol "cc_b_num" ;          pset:value 10 ],
+    [ lv2:symbol "ccnum_4_bit_1" ;     pset:value 20 ],
+    [ lv2:symbol "ccnum_4_bit_2" ;     pset:value 21 ],
+    [ lv2:symbol "ccnum_4_bit_3" ;     pset:value 22 ],
+    [ lv2:symbol "ccnum_4_bit_4" ;     pset:value 23 ],
+    [ lv2:symbol "ccnum_4_bit_5" ;     pset:value 24 ],
+    [ lv2:symbol "ccnum_4_bit_6" ;     pset:value 25 ],
+    [ lv2:symbol "ccnum_4_bit_7" ;     pset:value 26 ],
+    [ lv2:symbol "Plus8Return" ;        pset:value 1 ],
+    # state 1 — all values = 1
+    [ lv2:symbol "bits_change_1" ;     pset:value 1 ],
+    [ lv2:symbol "cc_a_change_1" ;     pset:value 1 ],
+    [ lv2:symbol "cc_b_change_1" ;     pset:value 1 ],
+    # state 2 — all values = 2
+    [ lv2:symbol "bits_change_2" ;     pset:value 2 ],
+    [ lv2:symbol "cc_a_change_2" ;     pset:value 2 ],
+    [ lv2:symbol "cc_b_change_2" ;     pset:value 2 ],
+    # state 3 — all values = 3
+    [ lv2:symbol "bits_change_3" ;     pset:value 3 ],
+    [ lv2:symbol "cc_a_change_3" ;     pset:value 3 ],
+    [ lv2:symbol "cc_b_change_3" ;     pset:value 3 ],
+    # state 4 — all values = 4
+    [ lv2:symbol "bits_change_4" ;     pset:value 4 ],
+    [ lv2:symbol "cc_a_change_4" ;     pset:value 4 ],
+    [ lv2:symbol "cc_b_change_4" ;     pset:value 4 ],
+    # state 5 — all values = 5
+    [ lv2:symbol "bits_change_5" ;     pset:value 5 ],
+    [ lv2:symbol "cc_a_change_5" ;     pset:value 5 ],
+    [ lv2:symbol "cc_b_change_5" ;     pset:value 5 ],
+    # state 6 — all values = 6
+    [ lv2:symbol "bits_change_6" ;     pset:value 6 ],
+    [ lv2:symbol "cc_a_change_6" ;     pset:value 6 ],
+    [ lv2:symbol "cc_b_change_6" ;     pset:value 6 ],
+    # state 7 — all values = 7
+    [ lv2:symbol "bits_change_7" ;     pset:value 7 ],
+    [ lv2:symbol "cc_a_change_7" ;     pset:value 7 ],
+    [ lv2:symbol "cc_b_change_7" ;     pset:value 7 ],
+    # state 8 — all values = 8
+    [ lv2:symbol "bits_change_8" ;     pset:value 8 ],
+    [ lv2:symbol "cc_a_change_8" ;     pset:value 8 ],
+    [ lv2:symbol "cc_b_change_8" ;     pset:value 8 ]
+  .
