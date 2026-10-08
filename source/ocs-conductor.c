@@ -34,7 +34,7 @@
 
 
 
-#define N_STATES 8
+#define N_STATES 16
 #define MAX_DISPATCH_RETRIES 4
 
 
@@ -50,11 +50,11 @@ enum {
   CC_B_FREE_NUM = 5,
   CC_NUM_FOR_BIT_START = 6,
   CC_NUM_FOR_BIT_END = 12,
-  PLUS8_RETURN = 13,
+  OVERFLOW_BASE = 13,
   SYSEX_OUT = 14,
   INTERNAL_SYSEX_ID = 15,
   STATE_DATA_START = 16,
-  STATE_DATA_END = 39
+  STATE_DATA_END = 63
 } ;
 
 
@@ -76,7 +76,7 @@ typedef struct {
   const float* cc_num_for_bit[7];
   const float* cc_a_free_val[N_STATES];
   const float* cc_b_free_val[N_STATES];
-  const float* plus8Return;
+  const float* overflow_base;
   LV2_Atom_Sequence*   sysex_out;
   const float* internal_sysex_id;
 
@@ -145,8 +145,8 @@ connect_port(LV2_Handle instance, uint32_t port, void* data)
 
   if (port >= CC_NUM_FOR_BIT_START && port <= CC_NUM_FOR_BIT_END) {
     self->cc_num_for_bit[port - CC_NUM_FOR_BIT_START] = (const float*)data;
-  } else if (port == PLUS8_RETURN) {
-    self->plus8Return = (const float*)data;
+  } else if (port == OVERFLOW_BASE) {
+    self->overflow_base = (const float*)data;
   } else if (port == SYSEX_OUT) {
     self->sysex_out = (LV2_Atom_Sequence*)data;
   } else if (port == INTERNAL_SYSEX_ID) {
@@ -275,11 +275,11 @@ run(LV2_Handle instance, uint32_t sample_count)
         //sysExOut(self, ctv);  //sending a minus value just causes all sysex values to be zeroed
         return; //nothing happens in the zero state so we just exit
       }
-      int base_state = (int)*self->plus8Return;
+      int base_state = (int)*self->overflow_base;
       if (base_state < 1) {
         base_state = 1;
-      } else if (base_state > 7) {
-        base_state = 7;
+      } else if (base_state > (N_STATES - 1)) {
+        base_state = (N_STATES - 1);
       }
 
       if (ctv > (N_STATES - 1)) {
@@ -289,7 +289,7 @@ run(LV2_Handle instance, uint32_t sample_count)
       }
 
       ORCH_DEBUGF(
-        "[conductor] trig=%u plus8=%d mapped_state=%d\n",
+        "[conductor] trig=%u overflow_base=%d mapped_state=%d\n",
         self->curr_trigger_val,
         base_state,
         ctv + 1);

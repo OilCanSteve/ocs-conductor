@@ -4,7 +4,7 @@
 
 **ocs-conductor** is an LV2 MIDI plugin that sends a fixed set of MIDI CC messages whenever a "state trigger" control port changes value. It is purely an output plugin: it receives no audio or MIDI input, only control-rate parameters, and emits MIDI CC events on its output atom port.
 
-The fundamental idea is that the plugin holds **8 named states** (indexed 0–7 internally, 1–8 as seen by the trigger). When the trigger changes to a new value, the plugin fires the MIDI messages corresponding to that state.
+The fundamental idea is that the plugin holds **16 named states** (indexed 0–15 internally, 1–16 as seen by the trigger). When the trigger changes to a new value, the plugin fires the MIDI messages corresponding to that state.
 
 ---
 
@@ -15,11 +15,11 @@ The fundamental idea is that the plugin holds **8 named states** (indexed 0–7 
 | 0     | `MidiOutput`        | Atom sequence output — carries MIDI CC events |
 | 1     | `MidiChannel`       | MIDI channel to use for all outgoing messages (0–15) |
 | 2     | `EnactChangesOnly`  | When non-zero, bit messages are only sent when a bit's value differs from the previous state |
-| 3     | `state_trigger`     | The state-selection trigger (0 = idle; 1–8 = state 1–8; values >8 wrap via `Plus8Return`) |
+| 3     | `state_trigger`     | The state-selection trigger (0 = idle; 1–16 = state 1–16; values >16 wrap via `OverFlowBase`) |
 | 4     | `cc_a_num`          | CC number for the "free" CC-A message (-1 = disabled) |
 | 5     | `cc_b_num`          | CC number for the "free" CC-B message (-1 = disabled) |
 | 6–12  | `ccnum_4_bit_1..7`  | CC numbers for the 7 individual bit messages (-1 = disabled for that bit) |
-| 13    | `Plus8Return`       | When trigger values exceed 8, this sets the base state (1–7) for the wrap-around cycle |
+| 13    | `OverFlowBase`      | When trigger values exceed 16, this sets the base state (1–15) for the wrap-around cycle |
 | 14    | `SysExOutput`       | Atom sequence output — carries a proprietary SysEx summary packet |
 | 15    | `InternalSysExId`   | Developer-defined SysEx tag byte embedded in every packet (`0..127`, default `0`); always present, no legacy/disabled state |
 | 16–18 | `bits_change_1`, `cc_a_change_1`, `cc_b_change_1` | State 1 data |
@@ -30,14 +30,22 @@ The fundamental idea is that the plugin holds **8 named states** (indexed 0–7 
 | 31–33 | `bits_change_6`, `cc_a_change_6`, `cc_b_change_6` | State 6 data |
 | 34–36 | `bits_change_7`, `cc_a_change_7`, `cc_b_change_7` | State 7 data |
 | 37–39 | `bits_change_8`, `cc_a_change_8`, `cc_b_change_8` | State 8 data |
+| 40–42 | `bits_change_9`, `cc_a_change_9`, `cc_b_change_9` | State 9 data |
+| 43–45 | `bits_change_10`, `cc_a_change_10`, `cc_b_change_10` | State 10 data |
+| 46–48 | `bits_change_11`, `cc_a_change_11`, `cc_b_change_11` | State 11 data |
+| 49–51 | `bits_change_12`, `cc_a_change_12`, `cc_b_change_12` | State 12 data |
+| 52–54 | `bits_change_13`, `cc_a_change_13`, `cc_b_change_13` | State 13 data |
+| 55–57 | `bits_change_14`, `cc_a_change_14`, `cc_b_change_14` | State 14 data |
+| 58–60 | `bits_change_15`, `cc_a_change_15`, `cc_b_change_15` | State 15 data |
+| 61–63 | `bits_change_16`, `cc_a_change_16`, `cc_b_change_16` | State 16 data |
 
-The state data ports are laid out consecutively in groups of three: `(bits, cc_a, cc_b)` × 8. The `connect_port` function maps them using integer division/modulo on `(port - STATE_DATA_START)`.
+The state data ports are laid out consecutively in groups of three: `(bits, cc_a, cc_b)` × 16. The `connect_port` function maps them using integer division/modulo on `(port - STATE_DATA_START)`.
 
 ---
 
 ## State Data Per State
 
-Each of the 8 states carries three values:
+Each of the 16 states carries three values:
 
 ### `bits_change_n` — 7-bit integer → 7 individual bit CC messages
 
@@ -61,6 +69,7 @@ Default values in the TTL give a useful ladder:
 | 6 | 63  | bits 0–5 set   |
 | 7 | 127 | all 7 bits set |
 | 8 | 0   | no bits set    |
+| 9–16 | 0 | no bits set |
 
 ### `cc_a_change_n` — free CC-A value
 
@@ -77,11 +86,11 @@ Identical logic to `cc_a_change_n`, but using CC number `cc_b_num`.
 1. Each audio cycle the plugin compares `*state_trigger` (cast to `uint8_t`) against its stored `curr_trigger_val`.
 2. If they differ, `curr_trigger_val` is updated and state dispatch begins.
 3. A trigger value of **0** is the idle/reset state — the plugin simply returns without sending anything.
-4. Trigger values **1–8** map directly to states **0–7** (zero-indexed internally: `ctv = trigger - 1`).
-5. Trigger values **> 8** wrap cyclically using `Plus8Return`:
-   - `base_index = Plus8Return - 1` (clamped 0–6).
-   - The cycle covers states `[base_index, 7]`, length = `8 - base_index`.
-   - `ctv = base_index + ((trigger - 8 - 1) % cycle_len)` (approximated).
+4. Trigger values **1–16** map directly to states **0–15** (zero-indexed internally: `ctv = trigger - 1`).
+5. Trigger values **> 16** wrap cyclically using `OverFlowBase`:
+   - `base_index = OverFlowBase - 1` (clamped 0–14).
+   - The cycle covers states `[base_index, 15]`, length = `16 - base_index`.
+   - `ctv = base_index + ((trigger - 16 - 1) % cycle_len)` (approximated).
    - This allows indefinite incremental triggering that cycles through a sub-range of states.
 
 ---
@@ -125,7 +134,7 @@ See [`sysex.py`](sysex.py) for an example CircuitPython receiver that keys off `
 
 The plugin bundle currently defines one developer preset:
 
-- **Identity (n=n)**: for states 1–8, all three values `bits_change_n`, `cc_a_change_n`, and `cc_b_change_n` are set to `n`.
+- **Identity (n=n)**: for states 1–16, all three values `bits_change_n`, `cc_a_change_n`, and `cc_b_change_n` are set to `n`.
 
 This is exposed as an LV2 `pset:Preset` and can be used for straightforward runtime verification in hosts such as `jalv`.
 
@@ -142,7 +151,7 @@ A debug macro `ORCH_DEBUG` (default 0) controls verbose `stderr` logging via `OR
 | File | Role |
 |------|------|
 | `ocs-conductor.c` | Plugin implementation — instantiate, connect_port, run, sendMidiCCMessages, sysExOut, fireMidiEvent |
-| `ocs-conductor.ttl` | LV2 plugin descriptor — declares all 40 ports with ranges, defaults, types, and one preset |
+| `ocs-conductor.ttl` | LV2 plugin descriptor — declares all 64 ports with ranges, defaults, types, and one preset |
 | `manifest.ttl` | LV2 bundle manifest — registers the plugin URI and TTL |
 | `uris.h` | Defines `conductorURIs` struct and `map_conductor_uris()` helper for URID mapping |
 | `sysex.py` | Example CircuitPython SysEx receiver matching the plugin's 8-byte packet format |

@@ -3,7 +3,7 @@
 # ocs-conductor
 #
 ######################################
-OCS_CONDUCTOR_VERSION = 0000000000000000000000000000000000000000
+OCS_CONDUCTOR_VERSION = 0.01
 OCS_CONDUCTOR_SITE = https://github.com/OilCanSteve/ocs-conductor.git
 OCS_CONDUCTOR_SITE_METHOD = git
 OCS_CONDUCTOR_BUNDLES = ocs-conductor.lv2
