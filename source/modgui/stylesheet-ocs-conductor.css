@@ -1,0 +1,319 @@
+.ocs-conductor {
+  width: 100%;
+  max-width: 820px;
+  min-height: 560px;
+  background: #ff7a00;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ocs-conductor .conductor-shell {
+  background: linear-gradient(165deg, #ff9b3d, #ff7a00);
+  color: black;
+  padding: 8px;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  font-family: "DejaVu Sans", sans-serif;
+  overflow: hidden;
+}
+
+.ocs-conductor .conductor-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ocs-conductor .brand,
+.ocs-conductor .name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ocs-conductor .name {
+  text-align: center;
+}
+
+.ocs-conductor .bypass-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.ocs-conductor .import-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: start;
+  gap: 6px;
+  margin-bottom: 4px;
+  width:100%;
+  border:#111 solid 1px;
+  padding: 4px;
+  
+}
+
+.ocs-conductor #json-import {
+  align-self: start;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  resize: vertical;
+  border: 1px solid #5f5f5f;
+  border-radius: 6px;
+  background: #fff;
+  color: black;
+  padding: 8px;
+  font-size: 13px;
+}
+
+.ocs-conductor #import-btn,
+.ocs-conductor .nav-btn {
+  border: 1px solid #6d7d8a;
+  background: linear-gradient(180deg, #3d4f5a, #25313a);
+  color: black;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ocs-conductor #import-btn {
+  align-self: start;
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 44px;
+  font-size: 14px;
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: radial-gradient(circle at 32% 30%, #f7f7f7 0%, #d8d8d8 38%, #9a9a9a 66%, #666 100%);
+}
+
+.ocs-conductor .nav-btn {
+  width: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  font-size: 16px;
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: radial-gradient(circle at 32% 30%, #f7f7f7 0%, #d8d8d8 38%, #9a9a9a 66%, #666 100%);
+}
+
+.ocs-conductor .import-status,
+.ocs-conductor .viewport-status {
+  min-height: 18px;
+  font-size: 11px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.ocs-conductor .section-title {
+  margin: 6px 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: black;
+}
+
+.ocs-conductor .knob-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.ocs-conductor .knob-wrap {
+  width: auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.ocs-conductor .knob-spacer {
+  min-height: 1px;
+}
+
+.ocs-conductor .knob-wrap .mod-control {
+  width: 38px;
+  height: 38px;
+  margin: 3px auto 0;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  background: radial-gradient(circle at 32% 30%, #f7f7f7 0%, #d8d8d8 38%, #9a9a9a 66%, #666 100%);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.45), 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.ocs-conductor .k-label {
+  font-size: 11px;
+  margin-bottom: 2px;
+  color: black;
+}
+
+.ocs-conductor .states-and-global {
+  display: block;
+}
+
+.ocs-conductor .state-editor {
+  flex: 1;
+}
+
+.ocs-conductor .viewport-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0;
+}
+
+.ocs-conductor .viewport-nav-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+
+
+.ocs-conductor .viewport-nav-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding-top: 0;
+}
+
+.ocs-conductor .state-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.ocs-conductor .state-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  justify-content: stretch;
+}
+
+.ocs-conductor .state-slot.hidden {
+  display: none;
+}
+
+.ocs-conductor .state-slot {
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  border-radius: 4px;
+  padding: 2px;
+  min-height: 18px;
+  box-sizing: border-box;
+}
+
+.ocs-conductor .state-slot .mod-control {
+  width: 32px;
+  height: 32px;
+  margin: 1px auto;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  background: radial-gradient(circle at 32% 30%, #f7f7f7 0%, #dadada 36%, #a5a5a5 62%, #656565 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Default to first 4 states if JS is delayed or unavailable. */
+.ocs-conductor .state-row .state-slot:nth-child(n+5) {
+  display: none;
+}
+
+.ocs-conductor .state-row-head .state-slot {
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  padding: 2px 0;
+}
+
+.ocs-conductor .matrix-row-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ocs-conductor .matrix-row-label {
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+  padding-left: 2px;
+}
+
+.ocs-conductor .global-pair {
+  width: 160px;
+}
+
+.ocs-conductor .global-pair .knob-wrap {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.ocs-conductor .io-row {
+  position: absolute;
+  right: -80px;
+  top: 60%;
+  height:200px;  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 0;
+  border: 1px solid black;
+  padding-right: 0;
+}
+
+.ocs-conductor .io-row .mod-pedal-output {
+  position: static !important;
+  margin-right: 0;
+}
+
+@media (max-width: 1180px) {
+  .ocs-conductor {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .ocs-conductor .states-and-global {
+    flex-direction: column;
+  }
+
+  .ocs-conductor .global-pair {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+
+  .ocs-conductor .global-pair .knob-wrap {
+    width: 120px;
+  }
+
+  .ocs-conductor .knob-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ocs-conductor .viewport-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ocs-conductor .viewport-nav-side {
+    justify-content: center;
+  }
+}

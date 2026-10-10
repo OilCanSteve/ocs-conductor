@@ -1,0 +1,150 @@
+<div class="ocs-conductor {{{cns}}}" style="background:#ff7a00;">
+  <div class="conductor-shell mod-pedal-boxy" mod-role="drag-handle">
+    
+    
+    <div class="conductor-header">
+      <div class="brand">OilCan</div>
+      <div class="name">conductor</div>
+      <div class="bypass-wrap">
+        <div class="mod-light small" mod-role="bypass-light"></div>
+        <div class="mod-switch" mod-role="bypass"></div>
+        <div class="knob-wrap"><div class="k-label">InternalSysExId</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="InternalSysExId"></div></div>
+      <div class="knob-wrap"><div class="k-label">OverFlowBase</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="OverFlowBase"></div></div>
+
+      </div>
+    </div>
+    
+
+    <div class="import-row">
+      <textarea id="json-import" spellcheck="false" placeholder="[[1,2,3],[4,5,6]]"></textarea>
+      <button id="import-btn" type="button">Import</button>
+    </div>
+    <div id="import-status" class="import-status"></div>
+
+    <div class="section-title">CC Numbers For Binary Digits Of 7-bit Pack</div>
+    <div class="knob-row ccnum-row">
+      <div class="knob-wrap"><div class="k-label">Bit 1</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_1"></div></div>
+      <div class="knob-wrap"><div class="k-label">Bit 2</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_2"></div></div>
+      <div class="knob-wrap"><div class="k-label">Bit 3</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_3"></div></div>
+      <div class="knob-wrap"><div class="k-label">Bit 4</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_4"></div></div>
+      <div class="knob-wrap"><div class="k-label">Bit 5</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_5"></div></div>
+      <div class="knob-wrap"><div class="k-label">Bit 6</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_6"></div></div>
+      <div class="knob-wrap"><div class="k-label">Bit 7</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="ccnum_4_bit_7"></div></div>
+    </div>
+    <div class="knob-row ccnum-aux-row">
+      <div class="knob-spacer" aria-hidden="true"></div>
+      <div class="knob-spacer" aria-hidden="true"></div>
+      <div class="knob-spacer" aria-hidden="true"></div>
+      <div class="knob-spacer" aria-hidden="true"></div>
+      <div class="knob-spacer" aria-hidden="true"></div>
+          </div>
+
+    <div class="states-and-global">
+      <div class="state-editor">
+        <div class="section-title">State Change Viewport</div>
+        <div class="viewport-row">
+          <div class="viewport-nav-side viewport-nav-left">
+            <button class="nav-btn" id="nav-prev" type="button">&lt;</button>
+          <br/><br/><br/>
+          <div class="knob-wrap"><div class="k-label">CC A Num</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_num"></div></div>
+          <div class="knob-wrap"><div class="k-label">CC B Num</div><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_num"></div></div>
+    </div>
+          <div class="state-matrix" id="state-matrix">
+            <div class="state-row state-row-head">
+              <div class="state-slot" data-state-index="1">S1</div>
+              <div class="state-slot" data-state-index="2">S2</div>
+              <div class="state-slot" data-state-index="3">S3</div>
+              <div class="state-slot" data-state-index="4">S4</div>
+              <div class="state-slot" data-state-index="5">S5</div>
+              <div class="state-slot" data-state-index="6">S6</div>
+              <div class="state-slot" data-state-index="7">S7</div>
+              <div class="state-slot" data-state-index="8">S8</div>
+              <div class="state-slot" data-state-index="9">S9</div>
+              <div class="state-slot" data-state-index="10">S10</div>
+              <div class="state-slot" data-state-index="11">S11</div>
+              <div class="state-slot" data-state-index="12">S12</div>
+              <div class="state-slot" data-state-index="13">S13</div>
+              <div class="state-slot" data-state-index="14">S14</div>
+              <div class="state-slot" data-state-index="15">S15</div>
+              <div class="state-slot" data-state-index="16">S16</div>
+            </div>
+            <div class="matrix-row-wrap">
+              <div class="matrix-row-label">Explodable 7 Bit Number</div>
+              <div class="state-row">
+                <div class="state-slot" data-state-index="1"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_1"></div></div>
+                <div class="state-slot" data-state-index="2"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_2"></div></div>
+                <div class="state-slot" data-state-index="3"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_3"></div></div>
+                <div class="state-slot" data-state-index="4"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_4"></div></div>
+                <div class="state-slot" data-state-index="5"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_5"></div></div>
+                <div class="state-slot" data-state-index="6"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_6"></div></div>
+                <div class="state-slot" data-state-index="7"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_7"></div></div>
+                <div class="state-slot" data-state-index="8"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_8"></div></div>
+                <div class="state-slot" data-state-index="9"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_9"></div></div>
+                <div class="state-slot" data-state-index="10"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_10"></div></div>
+                <div class="state-slot" data-state-index="11"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_11"></div></div>
+                <div class="state-slot" data-state-index="12"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_12"></div></div>
+                <div class="state-slot" data-state-index="13"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_13"></div></div>
+                <div class="state-slot" data-state-index="14"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_14"></div></div>
+                <div class="state-slot" data-state-index="15"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_15"></div></div>
+                <div class="state-slot" data-state-index="16"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="bits_change_16"></div></div>
+              </div>
+            </div>
+            <div class="matrix-row-wrap">
+              <div class="matrix-row-label">CC A Value</div>
+              <div class="state-row">
+                <div class="state-slot" data-state-index="1"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_1"></div></div>
+                <div class="state-slot" data-state-index="2"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_2"></div></div>
+                <div class="state-slot" data-state-index="3"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_3"></div></div>
+                <div class="state-slot" data-state-index="4"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_4"></div></div>
+                <div class="state-slot" data-state-index="5"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_5"></div></div>
+                <div class="state-slot" data-state-index="6"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_6"></div></div>
+                <div class="state-slot" data-state-index="7"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_7"></div></div>
+                <div class="state-slot" data-state-index="8"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_8"></div></div>
+                <div class="state-slot" data-state-index="9"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_9"></div></div>
+                <div class="state-slot" data-state-index="10"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_10"></div></div>
+                <div class="state-slot" data-state-index="11"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_11"></div></div>
+                <div class="state-slot" data-state-index="12"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_12"></div></div>
+                <div class="state-slot" data-state-index="13"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_13"></div></div>
+                <div class="state-slot" data-state-index="14"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_14"></div></div>
+                <div class="state-slot" data-state-index="15"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_15"></div></div>
+                <div class="state-slot" data-state-index="16"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_a_change_16"></div></div>
+              </div>
+            </div>
+            <div class="matrix-row-wrap">
+              <div class="matrix-row-label">CC B Value</div>
+              <div class="state-row">
+                <div class="state-slot" data-state-index="1"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_1"></div></div>
+                <div class="state-slot" data-state-index="2"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_2"></div></div>
+                <div class="state-slot" data-state-index="3"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_3"></div></div>
+                <div class="state-slot" data-state-index="4"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_4"></div></div>
+                <div class="state-slot" data-state-index="5"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_5"></div></div>
+                <div class="state-slot" data-state-index="6"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_6"></div></div>
+                <div class="state-slot" data-state-index="7"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_7"></div></div>
+                <div class="state-slot" data-state-index="8"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_8"></div></div>
+                <div class="state-slot" data-state-index="9"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_9"></div></div>
+                <div class="state-slot" data-state-index="10"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_10"></div></div>
+                <div class="state-slot" data-state-index="11"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_11"></div></div>
+                <div class="state-slot" data-state-index="12"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_12"></div></div>
+                <div class="state-slot" data-state-index="13"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_13"></div></div>
+                <div class="state-slot" data-state-index="14"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_14"></div></div>
+                <div class="state-slot" data-state-index="15"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_15"></div></div>
+                <div class="state-slot" data-state-index="16"><div class="mod-control" mod-role="input-control-port" mod-port-symbol="cc_b_change_16"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="viewport-nav-side viewport-nav-right">
+            <button class="nav-btn" id="nav-next" type="button">&gt;</button>
+            
+          </div>
+        </div>
+        <div class="viewport-status" id="viewport-status"></div>
+      </div>
+    </div>
+    <div class="io-row">      
+      <div class="mod-pedal-output" mod-role="output-midi-port" mod-port-symbol="MidiOutput" title="MIDI Out"></div>
+      <div class="mod-pedal-output" mod-role="output-midi-port" mod-port-symbol="SysExOutput" title="SysEx Out"></div>
+   </div>
+
+    
+  </div>
+</div>

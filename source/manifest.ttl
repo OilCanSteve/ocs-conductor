@@ -5,7 +5,8 @@
 
 <https://github.com/OilCanSteve/ocs-conductor> a lv2:Plugin ;
     lv2:binary <ocs-conductor.so> ;
-    rdfs:seeAlso <ocs-conductor.ttl> .
+    rdfs:seeAlso <ocs-conductor.ttl> ,
+                 <modgui.ttl> .
 
 <https://github.com/OilCanSteve/ocs-conductor/presets/identity>
     a pset:Preset ;

@@ -1,0 +1,265 @@
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+
+<https://github.com/OilCanSteve/ocs-conductor>
+  modgui:gui [
+    a modgui:Gui ;
+    modgui:resourcesDirectory <modgui> ;
+    modgui:iconTemplate <modgui/icon-ocs-conductor.html> ;
+    modgui:stylesheet <modgui/stylesheet-ocs-conductor.css> ;
+    modgui:javascript <modgui/ocs-conductor.js> ;
+    modgui:brand "OilCan" ;
+    modgui:label "conductor" ;
+    modgui:model "boxy" ;
+    modgui:panel "4-knobs" ;
+    modgui:color "black" ;
+    modgui:knob "silver" ;
+    modgui:port [
+      lv2:symbol "MidiChannel" ;
+      lv2:name "MidiChannel"
+    ] ;
+    modgui:port [
+      lv2:symbol "EnactChangesOnly" ;
+      lv2:name "EnactChangesOnly"
+    ] ;
+    modgui:port [
+      lv2:symbol "state_trigger" ;
+      lv2:name "state_trigger"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_num" ;
+      lv2:name "cc_a_num"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_num" ;
+      lv2:name "cc_b_num"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_1" ;
+      lv2:name "ccnum_4_bit_1"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_2" ;
+      lv2:name "ccnum_4_bit_2"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_3" ;
+      lv2:name "ccnum_4_bit_3"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_4" ;
+      lv2:name "ccnum_4_bit_4"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_5" ;
+      lv2:name "ccnum_4_bit_5"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_6" ;
+      lv2:name "ccnum_4_bit_6"
+    ] ;
+    modgui:port [
+      lv2:symbol "ccnum_4_bit_7" ;
+      lv2:name "ccnum_4_bit_7"
+    ] ;
+    modgui:port [
+      lv2:symbol "OverFlowBase" ;
+      lv2:name "OverFlowBase"
+    ] ;
+    modgui:port [
+      lv2:symbol "InternalSysExId" ;
+      lv2:name "InternalSysExId"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_1" ;
+      lv2:name "bits_change_1"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_1" ;
+      lv2:name "cc_a_change_1"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_1" ;
+      lv2:name "cc_b_change_1"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_2" ;
+      lv2:name "bits_change_2"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_2" ;
+      lv2:name "cc_a_change_2"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_2" ;
+      lv2:name "cc_b_change_2"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_3" ;
+      lv2:name "bits_change_3"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_3" ;
+      lv2:name "cc_a_change_3"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_3" ;
+      lv2:name "cc_b_change_3"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_4" ;
+      lv2:name "bits_change_4"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_4" ;
+      lv2:name "cc_a_change_4"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_4" ;
+      lv2:name "cc_b_change_4"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_5" ;
+      lv2:name "bits_change_5"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_5" ;
+      lv2:name "cc_a_change_5"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_5" ;
+      lv2:name "cc_b_change_5"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_6" ;
+      lv2:name "bits_change_6"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_6" ;
+      lv2:name "cc_a_change_6"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_6" ;
+      lv2:name "cc_b_change_6"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_7" ;
+      lv2:name "bits_change_7"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_7" ;
+      lv2:name "cc_a_change_7"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_7" ;
+      lv2:name "cc_b_change_7"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_8" ;
+      lv2:name "bits_change_8"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_8" ;
+      lv2:name "cc_a_change_8"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_8" ;
+      lv2:name "cc_b_change_8"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_9" ;
+      lv2:name "bits_change_9"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_9" ;
+      lv2:name "cc_a_change_9"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_9" ;
+      lv2:name "cc_b_change_9"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_10" ;
+      lv2:name "bits_change_10"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_10" ;
+      lv2:name "cc_a_change_10"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_10" ;
+      lv2:name "cc_b_change_10"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_11" ;
+      lv2:name "bits_change_11"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_11" ;
+      lv2:name "cc_a_change_11"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_11" ;
+      lv2:name "cc_b_change_11"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_12" ;
+      lv2:name "bits_change_12"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_12" ;
+      lv2:name "cc_a_change_12"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_12" ;
+      lv2:name "cc_b_change_12"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_13" ;
+      lv2:name "bits_change_13"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_13" ;
+      lv2:name "cc_a_change_13"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_13" ;
+      lv2:name "cc_b_change_13"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_14" ;
+      lv2:name "bits_change_14"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_14" ;
+      lv2:name "cc_a_change_14"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_14" ;
+      lv2:name "cc_b_change_14"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_15" ;
+      lv2:name "bits_change_15"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_15" ;
+      lv2:name "cc_a_change_15"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_15" ;
+      lv2:name "cc_b_change_15"
+    ] ;
+    modgui:port [
+      lv2:symbol "bits_change_16" ;
+      lv2:name "bits_change_16"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_a_change_16" ;
+      lv2:name "cc_a_change_16"
+    ] ;
+    modgui:port [
+      lv2:symbol "cc_b_change_16" ;
+      lv2:name "cc_b_change_16"
+    ]
+  ] .
