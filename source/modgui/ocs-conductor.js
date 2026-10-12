@@ -1,5 +1,4 @@
 (function () {
-  var PAGE_SIZE = 4;
   var TOTAL_STATES = 16;
   var cachedFuncs = null;
 
@@ -83,92 +82,10 @@
     }
   }
 
-  function renderViewport(root) {
-    var pageIndex = Number(root.getAttribute("data-page-index") || "0");
-    var slots = root.querySelectorAll(".state-slot[data-state-index]");
-    var headSlots = root.querySelectorAll(".state-row-head .state-slot");
-    var start = pageIndex * PAGE_SIZE + 1;
-    var end = start + PAGE_SIZE - 1;
-
-    for (var i = 0; i < slots.length; i++) {
-      var index = Number(slots[i].getAttribute("data-state-index"));
-      var visible = index >= start && index <= end;
-      slots[i].classList.toggle("hidden", !visible);
-      slots[i].style.display = visible ? "block" : "none";
-    }
-
-    // Keep a fixed 4-cell header row and relabel those cells for the active page.
-    for (var h = 0; h < headSlots.length; h++) {
-      if (h < PAGE_SIZE) {
-        headSlots[h].textContent = "S" + (start + h);
-        headSlots[h].classList.remove("hidden");
-        headSlots[h].style.display = "block";
-      } else {
-        headSlots[h].classList.add("hidden");
-        headSlots[h].style.display = "none";
-      }
-    }
-
+  function renderStateList(root) {
     var status = root.querySelector("#viewport-status");
     if (status) {
-      status.textContent = "Showing states " + start + "-" + end + " of 16";
-    }
-  }
-
-  function bindNavigation(root) {
-    var first = root.querySelector("#nav-first");
-    var prev = root.querySelector("#nav-prev");
-    var next = root.querySelector("#nav-next");
-    var last = root.querySelector("#nav-last");
-    var maxPage = TOTAL_STATES / PAGE_SIZE - 1;
-
-    if (!root._navDebugBound) {
-      root.addEventListener("click", function (event) {
-        var target = event.target;
-        if (!target || !target.id) {
-          return;
-        }
-        if (target.id === "nav-first" || target.id === "nav-prev" || target.id === "nav-next" || target.id === "nav-last") {
-          console.log("[ocs-conductor] paging click:", target.id, "pageIndex(before)=", root.getAttribute("data-page-index") || "0");
-        }
-      });
-      root._navDebugBound = true;
-    }
-
-    if (first) {
-      first.addEventListener("click", function () {
-        root.setAttribute("data-page-index", "0");
-        renderViewport(root);
-        console.log("[ocs-conductor] paging applied:", "nav-first", "pageIndex(after)=0");
-      });
-    }
-
-    if (prev) {
-      prev.addEventListener("click", function () {
-        var pageIndex = Number(root.getAttribute("data-page-index") || "0");
-        pageIndex = Math.max(0, pageIndex - 1);
-        root.setAttribute("data-page-index", String(pageIndex));
-        renderViewport(root);
-        console.log("[ocs-conductor] paging applied:", "nav-prev", "pageIndex(after)=", pageIndex);
-      });
-    }
-
-    if (next) {
-      next.addEventListener("click", function () {
-        var pageIndex = Number(root.getAttribute("data-page-index") || "0");
-        pageIndex = Math.min(maxPage, pageIndex + 1);
-        root.setAttribute("data-page-index", String(pageIndex));
-        renderViewport(root);
-        console.log("[ocs-conductor] paging applied:", "nav-next", "pageIndex(after)=", pageIndex);
-      });
-    }
-
-    if (last) {
-      last.addEventListener("click", function () {
-        root.setAttribute("data-page-index", String(maxPage));
-        renderViewport(root);
-        console.log("[ocs-conductor] paging applied:", "nav-last", "pageIndex(after)=", maxPage);
-      });
+      status.textContent = "Showing all " + TOTAL_STATES + " states";
     }
   }
 
@@ -204,7 +121,7 @@
       setupDom();
       var roots = document.querySelectorAll(".ocs-conductor");
       for (var i = 0; i < roots.length; i++) {
-        renderViewport(roots[i]);
+        renderStateList(roots[i]);
       }
     }
   }
@@ -213,10 +130,8 @@
     if (root._ocsSetupDone) {
       return;
     }
-    root.setAttribute("data-page-index", "0");
-    bindNavigation(root);
     bindImportButton(root);
-    renderViewport(root);
+    renderStateList(root);
     root._ocsSetupDone = true;
   }
 
