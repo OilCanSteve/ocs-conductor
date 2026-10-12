@@ -36,6 +36,6 @@ install: build
 
 	install -m 644 *.so  $(DESTDIR)$(PREFIX)/lib/lv2/$(BUNDLEDIR)/
 	install -m 644 *.ttl $(DESTDIR)$(PREFIX)/lib/lv2/$(BUNDLEDIR)/
-	install -m 644 modgui/* $(DESTDIR)$(PREFIX)/lib/lv2/$(BUNDLEDIR)/modgui
+	cp -a modgui/. $(DESTDIR)$(PREFIX)/lib/lv2/$(BUNDLEDIR)/modgui/
 
 # --------------------------------------------------------------
