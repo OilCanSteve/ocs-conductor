@@ -16,6 +16,91 @@ function handle_event(event, funcs) {
   var TOTAL_STATES = 16;
   var cachedFuncs = null;
 
+  function getSpinnerRange(symbol) {
+    if (/^bits_change_\d+$/.test(symbol)) {
+      return { min: 0, max: 127, step: 1 };
+    }
+    if (/^cc_a_change_\d+$/.test(symbol) || /^cc_b_change_\d+$/.test(symbol)) {
+      return { min: -1, max: 127, step: 1 };
+    }
+    if (/^ccnum_4_bit_[1-7]$/.test(symbol)) {
+      return { min: -1, max: 127, step: 1 };
+    }
+    if (symbol === "cc_a_num" || symbol === "cc_b_num") {
+      return { min: -1, max: 127, step: 1 };
+    }
+    if (symbol === "OverFlowBase") {
+      return { min: 1, max: 15, step: 1 };
+    }
+    if (symbol === "InternalSysExId") {
+      return { min: 0, max: 127, step: 1 };
+    }
+    return { min: 0, max: 127, step: 1 };
+  }
+
+  function normalizeSpinnerValue(rawValue, range) {
+    var n = Number(rawValue);
+    if (!Number.isFinite(n)) {
+      return null;
+    }
+    n = Math.round(n);
+    if (n < range.min) {
+      n = range.min;
+    }
+    if (n > range.max) {
+      n = range.max;
+    }
+    return n;
+  }
+
+  function bindSpinnerControl(control, symbol, range, root) {
+    var spinner = control.querySelector(".spinner-input");
+    if (!spinner) {
+      spinner = document.createElement("input");
+      spinner.type = "number";
+      spinner.className = "spinner-input";
+      control.appendChild(spinner);
+    }
+
+    spinner.min = String(range.min);
+    spinner.max = String(range.max);
+    spinner.step = String(range.step);
+    spinner.value = String(range.min);
+
+    // Prevent MOD's knob drag handlers on the parent node from stealing input gestures.
+    var stopBubble = function (e) {
+      e.stopPropagation();
+    };
+    spinner.addEventListener("pointerdown", stopBubble);
+    spinner.addEventListener("mousedown", stopBubble);
+    spinner.addEventListener("touchstart", stopBubble);
+    spinner.addEventListener("click", stopBubble);
+
+    var submitValue = function () {
+      var normalized = normalizeSpinnerValue(spinner.value, range);
+      if (normalized == null) {
+        return;
+      }
+
+      spinner.value = String(normalized);
+      try {
+        setPortValue(symbol, normalized, null);
+        updateKnobValueDisplay(symbol, normalized);
+      } catch (err) {
+        if (root) {
+          setStatus(root, "Control update failed: " + err.message, true);
+        }
+      }
+    };
+
+    spinner.addEventListener("change", submitValue);
+    spinner.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        submitValue();
+      }
+    });
+  }
+
   function setStatus(root, text, isError) {
     var status = root.querySelector("#import-status");
     if (!status) {
@@ -90,6 +175,11 @@ function handle_event(event, funcs) {
       if (readout) {
         readout.textContent = shownValue;
       }
+
+      var spinner = controls[i].querySelector(".spinner-input");
+      if (spinner && shownValue !== "-") {
+        spinner.value = shownValue;
+      }
     }
   }
 
@@ -101,24 +191,19 @@ function handle_event(event, funcs) {
     var controls = root.querySelectorAll('[mod-role="input-control-port"][mod-port-symbol]');
     for (var i = 0; i < controls.length; i++) {
       var symbol = controls[i].getAttribute("mod-port-symbol") || "";
+      var range = getSpinnerRange(symbol);
       controls[i].setAttribute("data-value", "-");
       controls[i].setAttribute("title", symbol + ": -");
 
-      if (isBitCcSymbol(symbol)) {
-        controls[i].classList.add("readout-above");
-        controls[i].classList.remove("readout-right");
-      } else {
-        controls[i].classList.add("readout-right");
-        controls[i].classList.remove("readout-above");
-      }
+      controls[i].classList.add("spinner-control");
+      controls[i].classList.remove("readout-above");
+      controls[i].classList.remove("readout-right");
+      bindSpinnerControl(controls[i], symbol, range, root);
 
       var readout = controls[i].querySelector(".knob-readout");
-      if (!readout) {
-        readout = document.createElement("span");
-        readout.className = "knob-readout";
-        controls[i].appendChild(readout);
+      if (readout && readout.parentNode) {
+        readout.parentNode.removeChild(readout);
       }
-      readout.textContent = "-";
     }
   }
 
@@ -189,8 +274,8 @@ function handle_event(event, funcs) {
       }
       out.push([
         clampInt(row[0], 0, 127),
-        clampInt(row[1], 0, 127),
-        clampInt(row[2], 0, 127),
+        clampInt(row[1], -1, 127),
+        clampInt(row[2], -1, 127),
       ]);
     }
 
