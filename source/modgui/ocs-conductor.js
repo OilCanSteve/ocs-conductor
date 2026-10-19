@@ -29,10 +29,13 @@ function handle_event(event, funcs) {
     if (symbol === "cc_a_num" || symbol === "cc_b_num") {
       return { min: -1, max: 127, step: 1 };
     }
+    if (symbol === "MidiChannel") {
+      return { min: 0, max: 15, step: 1 };
+    }
     if (symbol === "OverFlowBase") {
       return { min: 1, max: 15, step: 1 };
     }
-    if (symbol === "InternalSysExId") {
+    if (symbol === "InternalSysExId" || symbol === "SysExPacketId") {
       return { min: 0, max: 127, step: 1 };
     }
     return { min: 0, max: 127, step: 1 };

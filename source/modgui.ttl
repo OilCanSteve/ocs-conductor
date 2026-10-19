@@ -64,11 +64,11 @@
     ] ;
     modgui:port [
       lv2:symbol "OverFlowBase" ;
-      lv2:name "OverFlowBase"
+      lv2:name "ReturnPoint"
     ] ;
     modgui:port [
       lv2:symbol "InternalSysExId" ;
-      lv2:name "InternalSysExId"
+      lv2:name "SysExPacketId"
     ] ;
     modgui:port [
       lv2:symbol "bits_change_1" ;

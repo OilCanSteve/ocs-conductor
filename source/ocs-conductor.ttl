@@ -149,7 +149,7 @@
   a lv2:InputPort, lv2:ControlPort ;
   lv2:index 13 ;
     lv2:symbol "OverFlowBase" ;
-    lv2:name "OverFlowBase" ;
+  lv2:name "ReturnPoint" ;
     lv2:minimum 1 ;
     lv2:default 1;
     lv2:maximum 15 ;
@@ -168,7 +168,7 @@
     a lv2:InputPort, lv2:ControlPort ;
     lv2:index 15 ;
     lv2:symbol "InternalSysExId" ;
-    lv2:name "InternalSysExId" ;
+    lv2:name "SysExPacketId" ;
     lv2:minimum 0 ;
     lv2:default 0 ;
     lv2:maximum 127 ;

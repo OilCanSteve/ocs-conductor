@@ -15,13 +15,13 @@ The fundamental idea is that the plugin holds **16 named states** (indexed 0–1
 | 0     | `MidiOutput`        | Atom sequence output — carries MIDI CC events |
 | 1     | `MidiChannel`       | MIDI channel to use for all outgoing messages (0–15) |
 | 2     | `EnactChangesOnly`  | When non-zero, bit messages are only sent when a bit's value differs from the previous state |
-| 3     | `state_trigger`     | The state-selection trigger (0 = idle; 1–16 = state 1–16; values >16 wrap via `OverFlowBase`) |
+| 3     | `state_trigger`     | The state-selection trigger (0 = idle; 1–16 = state 1–16; values >16 wrap via `ReturnPoint`) |
 | 4     | `cc_a_num`          | CC number for the "free" CC-A message (-1 = disabled) |
 | 5     | `cc_b_num`          | CC number for the "free" CC-B message (-1 = disabled) |
 | 6–12  | `ccnum_4_bit_1..7`  | CC numbers for the 7 individual bit messages (-1 = disabled for that bit) |
-| 13    | `OverFlowBase`      | When trigger values exceed 16, this sets the base state (1–15) for the wrap-around cycle |
+| 13    | `ReturnPoint`       | When trigger values exceed 16, this sets the base state (1–15) for the wrap-around cycle |
 | 14    | `SysExOutput`       | Atom sequence output — carries a proprietary SysEx summary packet |
-| 15    | `InternalSysExId`   | Developer-defined SysEx tag byte embedded in every packet (`0..127`, default `0`); always present, no legacy/disabled state |
+| 15    | `SysExPacketId`     | Developer-defined SysEx tag byte embedded in every packet (`0..127`, default `0`); always present, no legacy/disabled state |
 | 16–18 | `bits_change_1`, `cc_a_change_1`, `cc_b_change_1` | State 1 data |
 | 19–21 | `bits_change_2`, `cc_a_change_2`, `cc_b_change_2` | State 2 data |
 | 22–24 | `bits_change_3`, `cc_a_change_3`, `cc_b_change_3` | State 3 data |
@@ -87,8 +87,8 @@ Identical logic to `cc_a_change_n`, but using CC number `cc_b_num`.
 2. If they differ, `curr_trigger_val` is updated and state dispatch begins.
 3. A trigger value of **0** is the idle/reset state — the plugin simply returns without sending anything.
 4. Trigger values **1–16** map directly to states **0–15** (zero-indexed internally: `ctv = trigger - 1`).
-5. Trigger values **> 16** wrap cyclically using `OverFlowBase`:
-   - `base_index = OverFlowBase - 1` (clamped 0–14).
+5. Trigger values **> 16** wrap cyclically using `ReturnPoint`:
+   - `base_index = ReturnPoint - 1` (clamped 0–14).
    - The cycle covers states `[base_index, 15]`, length = `16 - base_index`.
    - `ctv = base_index + ((trigger - 16 - 1) % cycle_len)` (approximated).
    - This allows indefinite incremental triggering that cycles through a sub-range of states.
@@ -108,18 +108,18 @@ Order of emission per trigger:
 
 ### SysEx summary packet (`SysExOutput`, port 14)
 
-On every trigger (including wrap-around states), the plugin emits a proprietary SysEx packet on a separate output port. There is a single fixed 8-byte format, unconditional on the value of `InternalSysExId`:
+On every trigger (including wrap-around states), the plugin emits a proprietary SysEx packet on a separate output port. There is a single fixed 8-byte format, unconditional on the value of `SysExPacketId`:
 
 ```
-F0  7D  <internal_sysex_id>  <state_index>  <bits_change_n>  <cc_a_change_n>  <cc_b_change_n>  F7
+F0  7D  <sysex_packet_id>  <state_index>  <bits_change_n>  <cc_a_change_n>  <cc_b_change_n>  F7
 ```
 
 - `0xF0` / `0xF7` — standard SysEx start/end bytes.
 - `0x7D` — non-commercial / experimental manufacturer ID.
-- Byte 2 is `(uint8_t) InternalSysExId` — a developer-defined tag (default `0`) that lets a receiver distinguish this message from other SysEx traffic sharing the same manufacturer ID. It carries no other special meaning (there is no "disabled"/legacy sentinel value any more).
+- Byte 2 is `(uint8_t) SysExPacketId` — a developer-defined tag (default `0`) that lets a receiver distinguish this message from other SysEx traffic sharing the same manufacturer ID. It carries no other special meaning (there is no "disabled"/legacy sentinel value any more).
 - The remaining 4 payload bytes (`state_index`, `bits_change_n`, `cc_a_change_n`, `cc_b_change_n`) are assembled into a local array and copied into the packet in one step, avoiding duplicated per-branch assignment logic.
 
-See [`sysex.py`](sysex.py) for an example CircuitPython receiver that keys off `InternalSysExId` before processing the rest of the payload.
+See [`sysex.py`](sysex.py) for an example CircuitPython receiver that keys off `SysExPacketId` before processing the rest of the payload.
 
 ---
 

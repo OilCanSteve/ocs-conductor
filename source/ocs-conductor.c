@@ -52,7 +52,7 @@ enum {
   CC_NUM_FOR_BIT_END = 12,
   OVERFLOW_BASE = 13,
   SYSEX_OUT = 14,
-  INTERNAL_SYSEX_ID = 15,
+  SYSEX_PACKET_ID = 15,
   STATE_DATA_START = 16,
   STATE_DATA_END = 63
 } ;
@@ -78,7 +78,7 @@ typedef struct {
   const float* cc_b_free_val[N_STATES];
   const float* overflow_base;
   LV2_Atom_Sequence*   sysex_out;
-  const float* internal_sysex_id;
+  const float* sysex_packet_id;
 
   int curr_trigger_val;
 
@@ -149,8 +149,8 @@ connect_port(LV2_Handle instance, uint32_t port, void* data)
     self->overflow_base = (const float*)data;
   } else if (port == SYSEX_OUT) {
     self->sysex_out = (LV2_Atom_Sequence*)data;
-  } else if (port == INTERNAL_SYSEX_ID) {
-    self->internal_sysex_id = (const float*)data;
+  } else if (port == SYSEX_PACKET_ID) {
+    self->sysex_packet_id = (const float*)data;
   } else if (port >= STATE_DATA_START && port <= STATE_DATA_END) {
     const uint32_t state_index = (port - STATE_DATA_START) / 3;
     const uint32_t state_field = (port - STATE_DATA_START) % 3;
@@ -345,7 +345,7 @@ run(LV2_Handle instance, uint32_t sample_count)
         self->sysex_out->atom.type = self->uris.atom_Sequence;
 
         // Always emit the 8-byte extended format:
-        // F0 7D <internal_sysex_id> <trigger> <bits> <cc_a> <cc_b> F7
+        // F0 7D <sysex_packet_id> <trigger> <bits> <cc_a> <cc_b> F7
         struct _sysex {
           LV2_Atom_Event event;
           uint8_t bytes[8];
@@ -362,7 +362,7 @@ run(LV2_Handle instance, uint32_t sample_count)
 
         sysex.bytes[0] = 0xF0;
         sysex.bytes[1] = 0x7D; // Non-commercial ID
-        sysex.bytes[2] = (uint8_t)*self->internal_sysex_id;
+  sysex.bytes[2] = (uint8_t)*self->sysex_packet_id;
         memcpy(&sysex.bytes[3], payload, sizeof(payload));
         sysex.bytes[7] = 0xF7;
         sysex.event.body.size = sizeof(sysex.bytes);
