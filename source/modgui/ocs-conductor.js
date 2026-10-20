@@ -113,6 +113,14 @@ function handle_event(event, funcs) {
     status.style.color = isError ? "#ff8f8f" : "#bde8c5";
   }
 
+  function showImportError(root, message) {
+    var fullMessage = "Import failed: " + message;
+    setStatus(root, fullMessage, true);
+    if (typeof window !== "undefined" && typeof window.alert === "function") {
+      window.alert(fullMessage);
+    }
+  }
+
   function updateEventDebug(root, event) {
     var debug = root.querySelector("#event-debug");
     if (!debug) {
@@ -291,9 +299,17 @@ function handle_event(event, funcs) {
   function applyTriplets(triplets, providedFuncs) {
     for (var i = 0; i < TOTAL_STATES; i++) {
       var n = i + 1;
-      setPortValue("bits_change_" + n, triplets[i][0], providedFuncs);
-      setPortValue("cc_a_change_" + n, triplets[i][1], providedFuncs);
-      setPortValue("cc_b_change_" + n, triplets[i][2], providedFuncs);
+      var bitsSymbol = "bits_change_" + n;
+      var ccASymbol = "cc_a_change_" + n;
+      var ccBSymbol = "cc_b_change_" + n;
+
+      setPortValue(bitsSymbol, triplets[i][0], providedFuncs);
+      setPortValue(ccASymbol, triplets[i][1], providedFuncs);
+      setPortValue(ccBSymbol, triplets[i][2], providedFuncs);
+
+      updateKnobValueDisplay(bitsSymbol, triplets[i][0]);
+      updateKnobValueDisplay(ccASymbol, triplets[i][1]);
+      updateKnobValueDisplay(ccBSymbol, triplets[i][2]);
     }
   }
 
@@ -316,9 +332,10 @@ function handle_event(event, funcs) {
       try {
         var triplets = parseTripletArray(textarea.value.trim());
         applyTriplets(triplets, null);
-        setStatus(root, "Import complete: loaded " + TOTAL_STATES + " states.", false);
+        setStatus(root, "Import complete: loaded " + triplets.length + " states.", false);
       } catch (err) {
-        setStatus(root, "Import failed: " + err.message, true);
+        var message = err && err.message ? err.message : "Unknown error";
+        showImportError(root, message);
       }
     });
   }
