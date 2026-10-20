@@ -33,6 +33,7 @@
   lv2:name "MidiChannel" ;
   lv2:minimum 0 ;
   lv2:maximum 15 ;
+  lv2:default 9 ;
   lv2:portProperty lv2:integer 
   ],  
   [
@@ -170,7 +171,7 @@
     lv2:symbol "InternalSysExId" ;
     lv2:name "SysExPacketId" ;
     lv2:minimum 0 ;
-    lv2:default 0 ;
+    lv2:default 10 ;
     lv2:maximum 127 ;
     lv2:portProperty lv2:integer 
     ],
@@ -669,7 +670,7 @@
   lv2:appliesTo <https://github.com/OilCanSteve/ocs-conductor> ;
   rdfs:label "Identity (n=n)" ;
   pset:port
-    [ lv2:symbol "MidiChannel" ;       pset:value 0 ],
+    [ lv2:symbol "MidiChannel" ;       pset:value 9 ],
     [ lv2:symbol "EnactChangesOnly" ;  pset:value 0 ],
     [ lv2:symbol "state_trigger" ;     pset:value 0 ],
     [ lv2:symbol "cc_a_num" ;          pset:value 11 ],
@@ -681,7 +682,8 @@
     [ lv2:symbol "ccnum_4_bit_5" ;     pset:value 24 ],
     [ lv2:symbol "ccnum_4_bit_6" ;     pset:value 25 ],
     [ lv2:symbol "ccnum_4_bit_7" ;     pset:value 26 ],
-    [ lv2:symbol "OverFlowBase" ;       pset:value 1 ],
+    [ lv2:symbol "OverFlowBase" ;      pset:value 1 ],
+    [lv2:symbol "InternalSysExId" ;    pset:value 10 ],
     # state 1 — all values = 1
     [ lv2:symbol "bits_change_1" ;     pset:value 1 ],
     [ lv2:symbol "cc_a_change_1" ;     pset:value 1 ],
