@@ -1,4 +1,9 @@
 .ocs-conductor {
+  --io-row-right: 0;
+  --io-row-top: 60%;
+  --io-row-width: 28px;
+  --io-output-gap: 8px;
+
   width: 100%;
   max-width: 820px;
   min-height: 560px;
@@ -8,7 +13,7 @@
 }
 
 .ocs-conductor .conductor-shell {
-  background-color:pink;
+  background-color: #dcd8d5;
   color: black;
   padding: 22px 8px 8px;
   position: relative;
@@ -426,20 +431,29 @@
 
 .ocs-conductor .io-row {
   position: absolute;
-  right: -80px;
-  top: 60%;
-  height:200px;  
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  right: var(--io-row-right);
+  top: var(--io-row-top);
+  width: var(--io-row-width);
+  display: block;
   margin-top: 0;
-  border: 1px solid black;
-  padding-right: 0;
+  overflow: visible;
 }
 
 .ocs-conductor .io-row .mod-pedal-output {
-  position: static !important;
-  margin-right: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--io-output-gap);
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+.ocs-conductor .io-row .mod-output {
+  position: relative;
+  margin: 0;
 }
 
 @media (max-width: 760px) {

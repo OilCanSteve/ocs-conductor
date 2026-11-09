@@ -1,4 +1,4 @@
-<div class="ocs-conductor {{{cns}}}" style="background:#ff7a00;">
+<div class="ocs-conductor {{{cns}}}">
   <div class="conductor-shell mod-pedal-boxy">
     <div mod-role="drag-handle" class="mod-drag-handle"></div>
     
@@ -161,10 +161,16 @@
         <div class="viewport-status" id="viewport-status"></div>
       </div>
     </div>
-    <div class="io-row">      
-      <div class="mod-pedal-output" mod-role="output-midi-port" mod-port-symbol="MidiOutput" title="MIDI Out"></div>
-      <div class="mod-pedal-output" mod-role="output-midi-port" mod-port-symbol="SysExOutput" title="SysEx Out"></div>
-   </div>
+    <div class="io-row">
+      <div class="mod-pedal-output">
+        <div class="mod-output mod-output-disconnected" mod-role="output-midi-port" mod-port-symbol="MidiOutput" title="MIDI Out">
+          <div class="mod-pedal-output-image"></div>
+        </div>
+        <div class="mod-output mod-output-disconnected" mod-role="output-midi-port" mod-port-symbol="SysExOutput" title="SysEx Out">
+          <div class="mod-pedal-output-image"></div>
+        </div>
+      </div>
+    </div>
 
     
   </div>
